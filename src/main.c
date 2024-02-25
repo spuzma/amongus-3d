@@ -3,10 +3,17 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+#define SCREEN_WIDTH 384
+#define SCREEN_HEIGHT 216
+
+// Implement render loop
+static void render();
+
 struct {
   SDL_Window *window;
   SDL_Renderer *renderer;
   SDL_Texture *texture;
+  uint32_t pixels[SCREEN_HEIGHT * SCREEN_WIDTH];
   bool quit;
 } state;
 
@@ -31,6 +38,10 @@ int main(int argc, char *args[]) {
         state.quit = true;
       }
     }
+    SDL_UpdateTexture(state.texture, NULL, state.pixels, SCREEN_WIDTH * 4);
+    SDL_RenderCopyEx(state.renderer, state.texture, NULL, NULL, 0.0, NULL,
+                     SDL_FLIP_VERTICAL);
+    SDL_RenderPresent(state.renderer);
   }
 
   SDL_DestroyTexture(state.texture);
