@@ -18,6 +18,9 @@ struct {
 
   } player;
 
+  struct {
+
+  } tilemap_t;
 } state;
 
 // Implement render loop
