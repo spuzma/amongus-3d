@@ -1,4 +1,6 @@
 
+
+#include "test.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_rect.h>
 #include <stdbool.h>
@@ -25,7 +27,7 @@ struct {
 
 // Implement render loop
 static void render() {
-  SDL_SetRenderDrawColor(state.renderer, 255, 0, 0, 255);
+  SDL_SetRenderDrawColor(state.renderer, 255, 255, 0, 255);
   SDL_RenderFillRect(state.renderer, &state.player.body);
 };
 
@@ -48,6 +50,7 @@ int main(int argc, char *args[]) {
 
   while (!state.quit) {
     // main game loop
+
     SDL_Event e;
     while (SDL_PollEvent(&e) != 0) {
       // User requests quit

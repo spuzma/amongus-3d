@@ -1,8 +1,10 @@
 CC = clang
+CXX = clang++
 
+SRC  = $(wildcard src/**/*.c) $(wildcard src/*.c) $(wildcard src/**/**/*.c) $(wildcard src/**/**/**/*.c)
 
-SRC = $(shell find src -name "*.c")
 LDFLAGS = -lSDL2
+
 BIN = bin
 OUTPUT = $(BIN)/exe
 OBJ  = $(SRC:.c=.o)
@@ -19,8 +21,10 @@ all: dirs libs game
 
 dirs:
 	mkdir -p ./$(BIN)
+
+
 run: all
-	$(BIN)/game
+	$(BIN)/exe
 
 
 libs-sdl:
