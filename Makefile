@@ -1,49 +1,59 @@
+# Makefile to compile all .c files in src directory into one executable
+# and link with the SDL static library using clang. Object files are placed in a subfolder within the bin directory.
+
+# Compiler
 CC = clang
-CXX = clang++
 
-SRC  = $(wildcard src/**/*.c) $(wildcard src/*.c) $(wildcard src/**/**/*.c) $(wildcard src/**/**/**/*.c)
+# Compiler flags
+CFLAGS = -Wall -O2
 
-LDFLAGS = -lSDL2
+# Include directory for SDL headers
+INCLUDES = -Ilib/SDL/include
 
-BIN = bin
-OUTPUT = $(BIN)/exe
-OBJ  = $(SRC:.c=.o)
-PATH_LIB = lib
-PATH_SDL = $(PATH_LIB)/SDL
+# Library paths and the libraries to link with
+LFLAGS = -Llib/SDL/lib
+LIBS = -lSDL2
 
+# Source files directory
+SRCDIR = src
 
+# Output directory for executable and object files
+BINDIR = bin
+OBJDIR = $(BINDIR)/obj
 
-.PHONY: all clean
+# Find all .c files in the src directory
+SOURCES = $(wildcard $(SRCDIR)/*.c)
 
+# Replace .c from SOURCES with .o and prefix with obj dir to get OBJECTS list
+OBJECTS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SOURCES))
 
-all: dirs libs game
+# Executable name
+EXECUTABLE = $(BINDIR)/build
 
+# Default target
+all: directories $(EXECUTABLE)
 
-dirs:
-	mkdir -p ./$(BIN)
+# Ensure bin and obj directories exist
+directories:
+	@mkdir -p $(BINDIR) $(OBJDIR)
 
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LFLAGS) $(LIBS)
 
+# Compile each .c to .o
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+#Alias for build and run
 run: all
-	$(BIN)/exe
+	$(EXECUTABLE)
+	
 
 
-libs-sdl:
-	mkdir -p $(BIN)/sdl
-	cmake -S $(PATH_SDL) -B $(BIN)/sdl
-	cd $(BIN)/sdl && make -j 10
-	chmod +x $(BIN)/sdl/sdl2-config
-	mkdir -p $(BIN)/lib
-	cp $(BIN)/sdl/libSDL2.a $(BIN)/lib
-
-
-libs: libs-sdl
-
-game: $(OBJ)
-	$(CC) -o $(OUTPUT) $^ $(LDFLAGS)
-
-%.o: %.c
-	$(CC) -o $@ -c $< $(CFLAGS)
-
-
+# Clean up bin directory
 clean:
-	rm -rf $(BIN) $(OBJ)
+	rm -rf $(BINDIR)
+
+
+.PHONY: all clean directories
+

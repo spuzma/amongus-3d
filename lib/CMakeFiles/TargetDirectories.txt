@@ -1,0 +1,12 @@
+/home/buz/code/amongus-3d/lib/CMakeFiles/sdl_headers_copy.dir
+/home/buz/code/amongus-3d/lib/CMakeFiles/SDL2main.dir
+/home/buz/code/amongus-3d/lib/CMakeFiles/SDL2.dir
+/home/buz/code/amongus-3d/lib/CMakeFiles/SDL2-static.dir
+/home/buz/code/amongus-3d/lib/CMakeFiles/SDL2_test.dir
+/home/buz/code/amongus-3d/lib/CMakeFiles/uninstall.dir
+/home/buz/code/amongus-3d/lib/CMakeFiles/edit_cache.dir
+/home/buz/code/amongus-3d/lib/CMakeFiles/rebuild_cache.dir
+/home/buz/code/amongus-3d/lib/CMakeFiles/list_install_components.dir
+/home/buz/code/amongus-3d/lib/CMakeFiles/install.dir
+/home/buz/code/amongus-3d/lib/CMakeFiles/install/local.dir
+/home/buz/code/amongus-3d/lib/CMakeFiles/install/strip.dir
